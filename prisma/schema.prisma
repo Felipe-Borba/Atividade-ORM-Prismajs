@@ -12,10 +12,10 @@ datasource db {
 
 model Client {
   id         String   @id @default(uuid())
-  name       String
+  name       String @unique
   last_name  String
-  cpf        String
-  address    String
+  cpf        Int
+  address    String?
   created_at DateTime @default(now())
   updeted_at DateTime @updatedAt
 
