@@ -6,7 +6,20 @@ npm install prisma --save-dev
 npx prisma init --datasource-provider sqlite
 ```
 
+open db workbench
+
 ```console
-npx prisma dev
+npx prisma studio
 ```
 
+to create and run the migration on dev mode
+
+```console
+npx prisma migrate dev
+```
+
+to run your code
+
+```console
+npx ts-node <path>
+```
