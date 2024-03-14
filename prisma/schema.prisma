@@ -10,38 +10,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Client {
-  id         String   @id @default(uuid())
-  name       String   @unique
-  last_name  String
-  cpf        Int
-  address    String?
-  created_at DateTime @default(now())
-  updeted_at DateTime @updatedAt
+// model Modules {
+//   id          String   @id @default(uuid())
+//   name        String   @unique
+//   description String
+//   created_at  DateTime @default(now())
 
-  @@map("client")
-}
+//   @@map("modules")
+// }
 
-model Teachers {
-  id   String @id @default(uuid())
-  name String @unique
+// model Courses {
+//   id          String   @id @default(uuid())
+//   name        String   @unique
+//   description String?
+//   duration    Int
+//   created_at  DateTime @default(now())
 
-  course Courses?
+//   teacher       Teachers @relation(fields: [fk_id_teacher], references: [id])
+//   fk_id_teacher String   @unique
 
-  @@map("teachers")
-}
+//   @@map("courses")
+// }
+
+// model Teachers {
+//   id   String @id @default(uuid())
+//   name String @unique
+
+//   course Courses?
+
+//   @@map("teachers")
+// }
 
 model Courses {
-  id          String   @id @default(uuid())
-  name        String   @unique
+  id          String           @id @default(uuid())
+  name        String           @unique
   description String?
   duration    Int
-  created_at  DateTime @default(now())
-
-  teacher       Teachers @relation(fields: [fk_id_teacher], references: [id])
-  fk_id_teacher String   @unique
+  created_at  DateTime         @default(now())
+  modules     CoursesModules[]
 
   @@map("courses")
+}
+
+model Modules {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String
+  created_at  DateTime @default(now())
+
+  courses CoursesModules[]
+
+  @@map("modules")
+}
+
+model CoursesModules {
+  id String @id @default(uuid())
+
+  // chave estrangeira de Courses
+  course       Courses @relation(fields: [fk_id_course], references: [id])
+  fk_id_course String
+
+  // chave estrangeira de modules
+  module       Modules @relation(fields: [fk_id_module], references: [id])
+  fk_id_module String
+
+  created_at DateTime @default(now())
+
+  @@map("courses_modules")
 }
 
 model Authors {
