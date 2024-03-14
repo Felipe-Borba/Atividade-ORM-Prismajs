@@ -23,3 +23,9 @@ to run your code
 ```console
 npx ts-node <path>
 ```
+
+does something
+
+```console
+npx prisma db pull
+```
